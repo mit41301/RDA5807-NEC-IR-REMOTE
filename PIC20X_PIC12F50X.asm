@@ -1,12 +1,11 @@
 ;*******************************************************************************
  TITLE      PIC20X+PIC12F50X+RDA5807M+NEC_IR.asm                               *
  SUBTITLE 	PIC10F200, PIC10F202, PIC12F508 & PIC12F509                        *
-; CONTENTS:  I²C RDA5807M + IR REMOTE Control                                  *
+; CONTENTS:  IÂ²C RDA5807M + IR REMOTE Control                                  *
 ; EDITOR:    @mit41301                                                         *
 ; UPDATED:   15/08/2025                                                        *
 ;*******************************************************************************
- 
- Radix DEC
+Radix DEC
  __idlocs H'5807'
  __CONFIG _IntRC_OSC & _WDT_OFF & _CP_OFF & _MCLRE_OFF;
 
@@ -15,31 +14,26 @@
  include "p10F200.inc"
  list    p=10F200
  endif
-
  ifdef __10F202
  Processor 10f202
  include "p10F202.inc"
  list    p=10F202
  endif
-
  ifdef __10F204
  Processor 10f204
  include "p10F204.inc"
  list    p=10F204
  endif
-
  ifdef __10F206
  Processor 10f206
  include "p10F206.inc"
  list    p=10F206
  endif
-     
  ifdef __12F508
  Processor 12f508
  include "p12F508.inc"
  list    p=12F508
  endif
-
  ifdef __12F509
  Processor 12f509
  include "p12F509.inc"
@@ -47,7 +41,6 @@
  endif
 
  errorlevel +205,+207,+302,+305,+306
-
 ;*******************************************************************************
 ; File register usage                                                          *
 ;*******************************************************************************
@@ -95,52 +88,43 @@ _ir_data:4  ;EQU    01Ch    ;First IR byte
 ;********************************************************************
 RAM_		
 		ENDC
-
 	if RAM_ > MAXRAM
      	error "File register usage OVERFLOW"
     endif
 ;###############################################################################
-
      ifdef __10F200
 SDA         EQU    GP2    ;SDA pin of the I2C
 SCL         EQU    GP1    ;SCL pin of the I2C
 IRx         EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz)
      endif
-
      ifdef __10F202
 SDA         EQU    GP2    ;SDA pin of the I2C
 SCL         EQU    GP1    ;SCL pin of the I2C
 IRx         EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz) 
      endif
-
      ifdef __10F204
 SDA         EQU    GP2    ;SDA pin of the I2C
 SCL         EQU    GP1    ;SCL pin of the I2C
 IRx         EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz) 
      endif
-
      ifdef __10F206
 SDA         EQU    GP2    ;SDA pin of the I2C
 SCL         EQU    GP1    ;SCL pin of the I2C
 IRx         EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz) 
      endif
-
      ifdef __12F508 
 IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz)
-SCL        EQU    GP4    ;SCL pin of the I²C Bus
-SDA        EQU    GP5    ;SDA pin of the I²C Bus
+SCL        EQU    GP4    ;SCL pin of the IÂ²C Bus
+SDA        EQU    GP5    ;SDA pin of the IÂ²C Bus
      endif
-
      ifdef __12F509 
 IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz)
-SCL        EQU    GP4    ;SCL pin of the I²C Bus
-SDA        EQU    GP5    ;SDA pin of the I²C Bus
+SCL        EQU    GP4    ;SCL pin of the IÂ²C Bus
+SDA        EQU    GP5    ;SDA pin of the IÂ²C Bus
      endif
-
 ;###############################################################################
 ; DEFAULT STARTING FREQUENCY and VOLUME - Enter your own Frequency
 ;###############################################################################
-
 volume_init EQU 0x03 | 1<<7 ;0x80; Initial Volume = 3 // [0..15]
 
 freq  EQU d'919'	;   91.9 MHz
@@ -160,7 +144,6 @@ freqL EQU ((freqB&3) << 6); Shift channel selection for matching register 0x03
  	movlw  B'00000000'	 ;Use as Digital I/O 
  	movwf  CMCON0		 ;Disable Digital Comparator function
  endif
-
  ifdef __10F206
  	movlw  0x000		 ;Use as Digital I/O 
  	movwf  CMCON0		 ;Disable Digital Comparator function
@@ -179,10 +162,8 @@ INIT:
 ;###############################################################################
     MOVLW  0xFF           ;Perform 400 ms delay
     CALL   DELAY          ;to let the power stabilize
-
     MOVLW  0xFF           ;Perform 600 ms delay
     CALL   DELAY          ;to let the power stabilize
-;
     MOVLW  0xFF           ;Perform 800 ms delay
     CALL   DELAY          ;to let the power stabilize
 ;###############################################################################
