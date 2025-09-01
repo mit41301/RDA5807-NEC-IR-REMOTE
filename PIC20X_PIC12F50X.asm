@@ -60,7 +60,7 @@
 ; File register usage                                                          *
 ;*******************************************************************************
     ifdef __10F200
-RAM     EQU  H'0010'
+RAM     SET  H'0010'
 MAXRAM  EQU  H'001F'
     endif
     ifdef __10F202
@@ -69,7 +69,7 @@ MAXRAM  EQU  H'001F'
     endif
     ifdef __10F204
 RAM  	EQU  H'0010'
-MAXRAM  EQU  H'0020'
+MAXRAM  EQU  H'001F'
     endif
     ifdef __10F206
 RAM  	EQU  h'0008'
@@ -488,25 +488,25 @@ _CHECK_DATA:
     XORWF _ir_data+2, W  ;If command is not 0x05
     BTFSS STATUS, Z
     GOTO $+2             ;then skip the next line
-	goto DECREASE_VOLUME
+    goto DECREASE_VOLUME
 
     MOVLW 0x06           ;Check the VOL+ button (code 0x06)
     XORWF _ir_data+2, W  ;If command is not 0x06
     BTFSS STATUS, Z
     GOTO $+2             ;then skip the next line
-	goto INCREASE_VOLUME
+    goto INCREASE_VOLUME
 
     MOVLW 0x02           ;Check the << CH- button (code 0x02)
     XORWF _ir_data+2, W  ;If command is not 0x02
     BTFSS STATUS, Z
     GOTO $+2             ;then skip the next line
-	goto SEEK_DOWN 
+    goto SEEK_DOWN 
 
     MOVLW 0x03           ;Check the W button (code 0x03)
     XORWF _ir_data+2, W  ;If command is not 0x03
     BTFSS STATUS, Z
     GOTO $+2    ;$+2   ;then skip the next three lines
-	goto CH_UP ;////////////////////////
+    goto CH_UP ;////////////////////////
 
     GOTO _LOOP           ;and go to the 'SET_OUTPUT' label
     END                   ;/* END of the Program */
