@@ -1,7 +1,7 @@
 ;*******************************************************************************
 ; TITLE       PIC20X+PIC12F50X+RDA5807M+NEC_IR.asm                             *
 ; SUBTITLE    PIC10F200,10F202,10F204,10F206,PIC12F508,12F509 & 12F510         *
-; CONTENTS:  I²C RDA5807M + IR REMOTE Control                                  *
+; CONTENTS:  IÂ²C RDA5807M + IR REMOTE Control                                  *
 ; EDITOR:    @mit41301                                                         *
 ; UPDATED:   15/08/2025                                                        *
 ;*******************************************************************************
@@ -60,7 +60,7 @@
 ; File register usage                                                          *
 ;*******************************************************************************
     ifdef __10F200
-RAM     SET  H'0010'
+RAM     EQU  H'0010'
 MAXRAM  EQU  H'001F'
     endif
     ifdef __10F202
@@ -152,18 +152,18 @@ IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz)
      endif
      ifdef __12F508 
 IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz)
-SCL        EQU    GP4    ;SCL pin of the I²C Bus
-SDA        EQU    GP5    ;SDA pin of the I²C Bus
+SCL        EQU    GP4    ;SCL pin of the IÂ²C Bus
+SDA        EQU    GP5    ;SDA pin of the IÂ²C Bus
      endif
      ifdef __12F509 
 IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz)
-SCL        EQU    GP4    ;SCL pin of the I²C Bus
-SDA        EQU    GP5    ;SDA pin of the I²C Bus
+SCL        EQU    GP4    ;SCL pin of the IÂ²C Bus
+SDA        EQU    GP5    ;SDA pin of the IÂ²C Bus
      endif
      ifdef __12F510 
 IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz)
-SCL        EQU    GP4    ;SCL pin of the I²C Bus
-SDA        EQU    GP5    ;SDA pin of the I²C Bus
+SCL        EQU    GP4    ;SCL pin of the IÂ²C Bus
+SDA        EQU    GP5    ;SDA pin of the IÂ²C Bus
      endif
 ;###############################################################################
 ; DEFAULT STARTING FREQUENCY and VOLUME - Enter your own Frequency
@@ -509,4 +509,5 @@ _CHECK_DATA:
     goto CH_UP ;////////////////////////
 
     GOTO _LOOP           ;and go to the 'SET_OUTPUT' label
+
     END                   ;/* END of the Program */
