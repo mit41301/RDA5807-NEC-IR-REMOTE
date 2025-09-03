@@ -1,9 +1,9 @@
 ;==========================================================================
-; TITLE       PIC20X+PIC12F50X+RDA5807M+NEC_IR.asm                        =
-; SUBTITLE    PIC10F200,10F202,10F204,10F206,PIC12F508,12F509 & 12F510    =
+; TITLE      PIC20X+PIC12F50X+RDA5807M+NEC_IR.asm                         =
+; SUBTITLE   PIC10F200,F202,F204,F206,F220,F222,12F508,12F509 & 12F510    =
 ; CONTENTS:  I²C RDA5807M + IR REMOTE Control                             =
 ; EDITOR:    @mit41301                                                    =
-; UPDATED:   15/08/2025                                                   =
+; UPDATED:   01/09/2025                                                   =
 ;==========================================================================
  
  ifdef __10F200
