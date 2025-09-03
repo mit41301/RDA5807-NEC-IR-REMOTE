@@ -1,100 +1,120 @@
-;*******************************************************************************
-; TITLE       PIC20X+PIC12F50X+RDA5807M+NEC_IR.asm                             *
-; SUBTITLE    PIC10F200,10F202,10F204,10F206,PIC12F508,12F509 & 12F510         *
-; CONTENTS:  IÂ²C RDA5807M + IR REMOTE Control                                  *
-; EDITOR:    @mit41301                                                         *
-; UPDATED:   15/08/2025                                                        *
-;*******************************************************************************
+;==========================================================================
+; TITLE       PIC20X+PIC12F50X+RDA5807M+NEC_IR.asm                        =
+; SUBTITLE    PIC10F200,10F202,10F204,10F206,PIC12F508,12F509 & 12F510    =
+; CONTENTS:  I²C RDA5807M + IR REMOTE Control                             =
+; EDITOR:    @mit41301                                                    =
+; UPDATED:   15/08/2025                                                   =
+;==========================================================================
  
- __idlocs H'5807'
-
  ifdef __10F200
- list    p=10F200
  include "p10F200.inc"
+ list    p=10F200
+RAM     SET  H'0010'
+MAXRAM  EQU  H'001F'
  __CONFIG _IntRC_OSC & _WDT_OFF & _CP_OFF & _MCLRE_OFF
+ __idlocs H'F200'
+SDA        EQU    GP2    ;SDA pin of the I2C
+SCL        EQU    GP1    ;SCL pin of the I2C
+IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz)
  endif
+;==========================================================================
  ifdef __10F202
- list    p=10F202
  include "p10F202.inc"
+ list    p=10F202
+RAM     EQU  h'0008'
+MAXRAM  EQU  H'001F'
  __CONFIG _IntRC_OSC & _WDT_OFF & _CP_OFF & _MCLRE_OFF
+ __idlocs H'F202'
+SDA        EQU    GP2    ;SDA pin of the I2C
+SCL        EQU    GP1    ;SCL pin of the I2C
+IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz)
  endif
+;==========================================================================
  ifdef __10F204
- list    p=10F204
  include "p10F204.inc"
+ list    p=10F204
+RAM  	EQU  H'0010'
+MAXRAM  EQU  H'001F'
  __CONFIG _IntRC_OSC & _WDT_OFF & _CP_OFF & _MCLRE_OFF
+ __idlocs H'F204'
+SDA        EQU    GP2    ;SDA pin of the I2C
+SCL        EQU    GP1    ;SCL pin of the I2C
+IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz)
  endif
+;==========================================================================
  ifdef __10F206
- list    p=10F206
  include "p10F206.inc"
+ list    p=10F206
+RAM  	EQU  h'0008'
+MAXRAM  EQU  H'001F'
  __CONFIG _IntRC_OSC & _WDT_OFF & _CP_OFF & _MCLRE_OFF
+ __idlocs H'F206'
+SDA        EQU    GP2    ;SDA pin of the I2C
+SCL        EQU    GP1    ;SCL pin of the I2C
+IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz)
  endif
+;==========================================================================
  ifdef __10F220
- list    p=10F220
  include "p10F220.inc"
+ list    p=10F220
+RAM  	EQU  H'0010'
+MAXRAM  EQU  H'001F'
  __CONFIG _IOSCFS_4MHZ & _WDT_OFF & _CP_OFF & _MCLRE_OFF
+ __idlocs H'F220'
+SDA        EQU    GP2    ;SDA pin of the I2C
+SCL        EQU    GP1    ;SCL pin of the I2C
+IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz)
  endif
+;==========================================================================
  ifdef __10F222
- list    p=10F222
  include "p10F222.inc"
+ list    p=10F222
+RAM  	EQU  h'0009'
+MAXRAM  EQU  H'001F'
  __CONFIG _IOSCFS_4MHZ & _WDT_OFF & _CP_OFF & _MCLRE_OFF
- endif  
+ __idlocs H'F222'
+SDA        EQU    GP2    ;SDA pin of the I2C
+SCL        EQU    GP1    ;SCL pin of the I2C
+IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz)
+ endif
+;========================================================================== 
  ifdef __12F508
- list    p=12F508
  include "p12F508.inc"
+ list    p=12F508
+RAM  	EQU  h'0007'
+MAXRAM  EQU  H'001F'
  __CONFIG _IntRC_OSC & _WDT_OFF & _CP_OFF & _MCLRE_OFF
+ __idlocs H'F508'
+IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz)
+SCL        EQU    GP4    ;SCL pin of the I²C Bus
+SDA        EQU    GP5    ;SDA pin of the I²C Bus
  endif
+;==========================================================================
  ifdef   __12F509
- list    p=12F509
  include "p12F509.inc"
+ list    p=12F509
+RAM  	EQU  H'0007'
+MAXRAM  EQU  H'003F'
  __CONFIG _IntRC_OSC & _WDT_OFF & _CP_OFF & _MCLRE_OFF
+ __idlocs H'F509'
+IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz)
+SCL        EQU    GP4    ;SCL pin of the I²C Bus
+SDA        EQU    GP5    ;SDA pin of the I²C Bus
  endif
+;==========================================================================
  ifdef   __12F510
- list    p=12F510
  include "p12F510.inc"
+ list    p=12F510
+RAM  	EQU  H'000A'
+MAXRAM  EQU  H'003F'
  __CONFIG _IntRC_OSC & _WDT_OFF & _CP_OFF & _MCLRE_OFF & _IOSCFS_OFF
+ __idlocs H'F510'
+IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz)
+SCL        EQU    GP4    ;SCL pin of the I²C Bus
+SDA        EQU    GP5    ;SDA pin of the I²C Bus
  endif
 
  errorlevel +202,+205,+207,+302,+305,+306,+224
-
-;*******************************************************************************
-; File register usage                                                          *
-;*******************************************************************************
-    ifdef __10F200
-RAM     EQU  H'0010'
-MAXRAM  EQU  H'001F'
-    endif
-    ifdef __10F202
-RAM     EQU  h'0008'
-MAXRAM  EQU  H'001F'
-    endif
-    ifdef __10F204
-RAM  	EQU  H'0010'
-MAXRAM  EQU  H'001F'
-    endif
-    ifdef __10F206
-RAM  	EQU  h'0008'
-MAXRAM  EQU  H'001F'
-    endif
-    ifdef __10F220
-RAM  	EQU  H'0010'
-MAXRAM  EQU  H'001F'
-    endif
-    ifdef __10F222
-RAM  	EQU  h'0009'
-MAXRAM  EQU  H'001F'
-    endif
-    ifdef __12F508
-RAM  	EQU  h'0007'
-MAXRAM  EQU  H'001F'
-    endif
-    ifdef __12F509
-RAM  	EQU  H'0007'
-MAXRAM  EQU  H'003F'
-	endif
-    ifdef __12F510
-RAM  	EQU  H'000A'
-MAXRAM  EQU  H'003F'
-    endif
 ;********************************************************************
 		CBLOCK RAM	
 ;********************************************************************
@@ -107,7 +127,7 @@ ack         ;EQU    015h    ;Acknowledgment received from the device
 volume      ;EQU    016h    ;Radio volume level
 frequency_l ;EQU    017h    ;Frequency low byte
 frequency_h ;EQU    018h    ;Frequency high byte
-;********************************************************************
+
 _count      ;EQU    019h    ;Saved value of the timer
 _byte_count ;EQU    01Ah    ;Counter of processed bytes
 _bit_count  ;EQU    01Bh    ;Counter of processed bits
@@ -115,75 +135,23 @@ _ir_data:4  ;EQU    01Ch    ;First IR byte
 ;********************************************************************
 RAM_		
 		ENDC
-
-    if (RAM_-1) > MAXRAM
-     	error "File register usage OVERFLOW"
-    endif
-;###############################################################################
-     ifdef __10F200
-SDA        EQU    GP2    ;SDA pin of the I2C
-SCL        EQU    GP1    ;SCL pin of the I2C
-IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz)
-     endif
-     ifdef __10F202
-SDA        EQU    GP2    ;SDA pin of the I2C
-SCL        EQU    GP1    ;SCL pin of the I2C
-IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz) 
-     endif
-     ifdef __10F204
-SDA        EQU    GP2    ;SDA pin of the I2C
-SCL        EQU    GP1    ;SCL pin of the I2C
-IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz) 
-     endif
-     ifdef __10F206
-SDA        EQU    GP2    ;SDA pin of the I2C
-SCL        EQU    GP1    ;SCL pin of the I2C
-IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz) 
-     endif
-     ifdef __10F220
-SDA        EQU    GP2    ;SDA pin of the I2C
-SCL        EQU    GP1    ;SCL pin of the I2C
-IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz) 
-     endif
-     ifdef __10F222
-SDA        EQU    GP2    ;SDA pin of the I2C
-SCL        EQU    GP1    ;SCL pin of the I2C
-IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz) 
-     endif
-     ifdef __12F508 
-IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz)
-SCL        EQU    GP4    ;SCL pin of the IÂ²C Bus
-SDA        EQU    GP5    ;SDA pin of the IÂ²C Bus
-     endif
-     ifdef __12F509 
-IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz)
-SCL        EQU    GP4    ;SCL pin of the IÂ²C Bus
-SDA        EQU    GP5    ;SDA pin of the IÂ²C Bus
-     endif
-     ifdef __12F510 
-IRx        EQU    GP3    ;INPUT ONLY PIN(IR Rx 38kHz)
-SCL        EQU    GP4    ;SCL pin of the IÂ²C Bus
-SDA        EQU    GP5    ;SDA pin of the IÂ²C Bus
-     endif
+ if (RAM_-1) > MAXRAM
+    error "File register usage OVERFLOW"
+ endif
 ;###############################################################################
 ; DEFAULT STARTING FREQUENCY and VOLUME - Enter your own Frequency
 ;###############################################################################
-
 volume_init EQU 0x03 | 1<<7 ;0x80; Initial Volume = 3 // [0..15]
-
 freq  EQU d'919'	;   91.9 MHz
 ;freq  EQU d'943'  	;   94.3 MHz
 ;freq  EQU d'1040'	;  104.0 MHz
-
 freqB EQU (freq - 366) ; BAND = 0 : 87~108 MHz (US/Europe)
 freqH EQU (freqB >> 2)    ; Frequency = Channel Spacing(kHz) x CHAN + 87.0 MHz
 freqL EQU ((freqB&3) << 6); Shift channel selection for matching register 0x03
 
 	ORG    H'0000'
- 
     andlw   ~1 
     movwf   OSCCAL
-
  ifdef __10F204
     movlw  B'00000000'	 ;Use as Digital I/O 
     movwf  CMCON0		 ;Disable Digital Comparator function
@@ -207,7 +175,6 @@ freqL EQU ((freqB&3) << 6); Shift channel selection for matching register 0x03
     movlw  B'00000000'   ;Use as Digital I/O 
     movwf  ADCON0		 ;Disable ADC function
  endif
-
 INIT:
     MOVLW  ~((1<<T0CS)|(1<<NOT_GPPU)|(1<<PSA))
     OPTION                ;Enable GPIO2 and pull-ups
@@ -437,34 +404,34 @@ _RECEIVE_BYTE:
 _RECEIVE_BIT:
     RRF INDF, F          ;Shift the INDF register to the right
 ;---------------Receive the positive pulse of the bit-----------------
-    CLRF TMR0           ;Otherwise clear the timer register
+    CLRF TMR0            ;Otherwise clear the timer register
     BTFSS GPIO, IRx      ;And wait while 'ir' is low
     GOTO $-1
-    MOVF TMR0, W        ;Copy the TMR0 value into the W register
+    MOVF TMR0, W         ;Copy the TMR0 value into the W register
     MOVWF _count         ;and save the value into the 'count' register
-    MOVLW 1             ;Load 1 into W (256 us x 1 = 0.26 ms)
+    MOVLW 1              ;Load 1 into W (256 us x 1 = 0.26 ms)
     SUBWF _count, W      ;And subtract W from 'count'
-    BTFSS STATUS, C     ;If 'count' < 1 (pulse is shorter than 0.26 ms)
+    BTFSS STATUS, C      ;If 'count' < 1 (pulse is shorter than 0.26 ms)
     GOTO _LOOP           ;then return to 'LOOP'
-    MOVLW 3             ;Load 3 into W (256 us x 3 = 0.77 ms)
+    MOVLW 3              ;Load 3 into W (256 us x 3 = 0.77 ms)
     SUBWF _count, W      ;And subtract W from 'count'
-    BTFSC STATUS, C     ;If 'count' > 3 (pulse is longer than 0.77 ms)
+    BTFSC STATUS, C      ;If 'count' > 3 (pulse is longer than 0.77 ms)
     GOTO _LOOP           ;then return to 'LOOP'
 ;---------------Receive the negative pulse of the bit-----------------
-    CLRF TMR0           ;Otherwise clear the timer register
-    BTFSC GPIO, IRx     ;And wait while 'ir' is high
+    CLRF TMR0            ;Otherwise clear the timer register
+    BTFSC GPIO, IRx      ;And wait while 'ir' is high
     GOTO $-1
-    MOVF TMR0, W        ;Copy the TMR0 value into the W register
-    MOVWF _count        ;and save the value into the 'count' register
-    MOVLW 4;///////////             ;Load 5 into W (256 us x 4 = 1.1 ms)
+    MOVF TMR0, W         ;Copy the TMR0 value into the W register
+    MOVWF _count         ;and save the value into the 'count' register
+    MOVLW 4              ;Load 5 into W (256 us x 4 = 1.1 ms)
     SUBWF _count, W      ;And subtract W from 'count'
-    BTFSS STATUS, C     ;If 'count' < 4 (pulse is shorter than 1.1 ms)
+    BTFSS STATUS, C      ;If 'count' < 4 (pulse is shorter than 1.1 ms)
     GOTO _NEXT_BIT       ;then go to the 'NEXT_BIT' label
-    MOVLW 8             ;Load 8 into W (256 us x 8 = 2 ms)
+    MOVLW 8              ;Load 8 into W (256 us x 8 = 2 ms)
     SUBWF _count, W      ;And subtract W from 'count'
-    BTFSC STATUS, C     ;If 'count' > 8 (pulse is longer than 2 ms)
+    BTFSC STATUS, C      ;If 'count' > 8 (pulse is longer than 2 ms)
     GOTO _LOOP           ;then go to the 'LOOP' label
-    BSF INDF, 7         ;Set the MSB of the INDF register
+    BSF INDF, 7          ;Set the MSB of the INDF register
 _NEXT_BIT:
     INCF _bit_count, F   ;Increment the 'bit_count' register
     BTFSS _bit_count, 3  ;Check if 'bit_count' becomes 8
@@ -472,7 +439,7 @@ _NEXT_BIT:
     INCF _byte_count, F  ;Increment the 'byte_count' register
     BTFSC _byte_count, 2 ;Check if 'byte_count' becomes 4    
     GOTO _CHECK_DATA     ;If it is then go to 'CHECK_DATA' label
-    INCF FSR, F         ;Increment the indirect addressing pointer
+    INCF FSR, F          ;Increment the indirect addressing pointer
     GOTO _RECEIVE_BYTE   ;and go to 'RECEIVE_BYTE' label
 _CHECK_DATA:
     COMF _ir_data+1, W   ;Negate the second received byte
@@ -483,31 +450,25 @@ _CHECK_DATA:
     XORWF _ir_data+2, W  ;And implement the XOR between 3rd and 4th bytes
     BTFSS STATUS, Z      ;If the result is not 0 (bytes are not equal)
     GOTO _LOOP           ;Then return to the 'LOOP' label
-
     MOVLW 0x05           ;Check the VOL- button (code 0x05)
     XORWF _ir_data+2, W  ;If command is not 0x05
     BTFSS STATUS, Z
     GOTO $+2             ;then skip the next line
     goto DECREASE_VOLUME
-
     MOVLW 0x06           ;Check the VOL+ button (code 0x06)
     XORWF _ir_data+2, W  ;If command is not 0x06
     BTFSS STATUS, Z
     GOTO $+2             ;then skip the next line
     goto INCREASE_VOLUME
-
     MOVLW 0x02           ;Check the << CH- button (code 0x02)
     XORWF _ir_data+2, W  ;If command is not 0x02
     BTFSS STATUS, Z
     GOTO $+2             ;then skip the next line
     goto SEEK_DOWN 
-
     MOVLW 0x03           ;Check the W button (code 0x03)
     XORWF _ir_data+2, W  ;If command is not 0x03
     BTFSS STATUS, Z
-    GOTO $+2    ;$+2   ;then skip the next three lines
-    goto CH_UP ;////////////////////////
-
+    GOTO $+2    ;$+2     ;then skip the next three lines
+    goto CH_UP           ;goto Channel Up
     GOTO _LOOP           ;and go to the 'SET_OUTPUT' label
-
-    END                   ;/* END of the Program */
+    END                  ;/* END of the Program */
