@@ -3,3 +3,27 @@ FM tuner using RDA Microelectronics RDA5807 tuner with NEC IR Remote control  us
 MPLAB IDE 8.92
 
 MPASM 5.51
+
+PIC10F2XX PIN ASSIGNMENT
+
+
+SDA        EQU    GP2
+=
+
+
+SCL        EQU    GP1
+=
+
+IRx        EQU    GP3    
+=
+ PIC10F2XX PIN ASSIGNMENT
+ 
+IRx        EQU    GP3
+
+SCL        EQU    GP4
+
+SDA        EQU    GP5
+
+
+
+ 
