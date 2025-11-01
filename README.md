@@ -16,7 +16,7 @@ SCL        EQU    GP1
 
 IRx        EQU    GP3    
 
- PIC10F2XX PIN ASSIGNMENT
+ PIC10F5XX PIN ASSIGNMENT
  
 IRx        EQU    GP3
 
