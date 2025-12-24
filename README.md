@@ -15,9 +15,9 @@ MPASM **5.51**
 
 **PIC10F2XX PIN ASSIGNMENT**
 
-* SDA        EQU    GP2  
-* SCL        EQU    GP1  
-* IRx        EQU    GP3   
+* SDA<->GP2  
+* SCL<->GP1  
+* IRx<->GP3   
 
 **PIC10F5XX PIN ASSIGNMENT** 
  
