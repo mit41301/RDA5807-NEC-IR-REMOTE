@@ -1,7 +1,16 @@
-FM tuner using RDA Microelectronics RDA5807 tuner with NEC IR Remote control  using PIC10F200, PIC10F202, PIC10F204, PIC10F206, PIC10F220, PIC10F222, PIC12F508 ,PIC12F509 or PIC12F510
+FM tuner using RDA Microelectronics RDA5807 tuner with NEC IR Remote control  using  
+* PIC10F200  
+* PIC10F202  
+* PIC10F204  
+* PIC10F206  
+* PIC10F220 
+* PIC10F222   
+* PIC12F508  
+* PIC12F509   
+* PIC12F510  
 
-MPLAB IDE 8.92  
-MPASM 5.51  
+MPLAB IDE **8.92**  
+MPASM **5.51**   
 
 **PIC10F2XX PIN ASSIGNMENT**
 
